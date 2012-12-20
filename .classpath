@@ -8,5 +8,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/Users/Ribesg/workspace/lib/lombok.jar"/>
+	<classpathentry kind="src" path="/NCore"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
