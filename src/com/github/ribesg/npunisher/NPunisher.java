@@ -3,43 +3,51 @@ package com.github.ribesg.npunisher;
 import lombok.Getter;
 
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.ribesg.ncore.NCore;
 import com.github.ribesg.ncore.nodes.cuboid.CuboidNode;
 import com.github.ribesg.ncore.nodes.punisher.PunisherNode;
 
-public class NPunisher extends JavaPlugin implements PunisherNode {
+public class NPunisher extends PunisherNode {
 
     // Core plugin
-    @Getter NCore      core;
+    public static final String NCORE           = "NCore";
+    @Getter public NCore       core;
 
     // Useful Nodes
-    @Getter CuboidNode cuboidNode;
+    public static final String NCUBOID         = "NCuboid";
+    @Getter public CuboidNode  cuboidNode;
 
     // Set to true by afterEnable() call
     // Prevent multiple calls to afterEnable
-    private boolean    loadingComplete = false;
+    private boolean            loadingComplete = false;
 
     @Override
     public void onEnable() {
-        if (!Bukkit.getPluginManager().isPluginEnabled("NCore")) {
+        if (!Bukkit.getPluginManager().isPluginEnabled(NCORE)) {
             // TODO
         } else {
+            core = (NCore) Bukkit.getPluginManager().getPlugin(NCORE);
             // TODO
-
+            afterEnable();
         }
     }
 
     public void afterEnable() {
-        if (!this.loadingComplete) {
-            this.loadingComplete = true;
+        if (!loadingComplete) {
+            loadingComplete = true;
             Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 
                 @Override
                 public void run() {
                     // Interact with other Nodes here
-
+                    if (!Bukkit.getPluginManager().isPluginEnabled(NCUBOID)) {
+                        // TODO
+                    } else {
+                        cuboidNode = (CuboidNode) Bukkit.getPluginManager().getPlugin(NCUBOID);
+                        // TODO
+                        afterEnable();
+                    }
                 }
             });
         }
